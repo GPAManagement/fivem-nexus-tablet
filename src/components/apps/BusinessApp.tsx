@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Briefcase, Plus, Users, DollarSign } from "lucide-react";
+import { ArrowLeft, Briefcase, Plus, Users, DollarSign, Trash2, Edit3 } from "lucide-react";
 
 interface BusinessAppProps {
   onBack: () => void;
@@ -18,7 +18,8 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
       type: "Autohändler",
       members: ["John Doe", "Jane Smith"],
       balance: 125000,
-      status: "aktiv"
+      status: "aktiv",
+      owner: "John Doe"
     },
     {
       id: 2,
@@ -26,7 +27,8 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
       type: "Werkstatt",
       members: ["Mike Wilson"],
       balance: 85000,
-      status: "aktiv"
+      status: "aktiv",
+      owner: "Mike Wilson"
     }
   ]);
 
@@ -45,7 +47,8 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
         type: formData.type,
         members: formData.members.filter(m => m.trim() !== ""),
         balance: 0,
-        status: "aktiv"
+        status: "aktiv",
+        owner: "Du"
       };
       setBusinesses([...businesses, newBusiness]);
       setFormData({ name: "", type: "", members: [""] });
@@ -66,11 +69,19 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
     setFormData({ ...formData, members: newMembers });
   };
 
+  const deleteBusiness = (id: number) => {
+    setBusinesses(businesses.filter(b => b.id !== id));
+  };
+
   if (showCreateForm) {
     return (
       <div className="p-6 text-white">
         <div className="flex items-center mb-6">
-          <Button variant="ghost" onClick={() => setShowCreateForm(false)} className="mr-4 text-white hover:bg-gray-700">
+          <Button 
+            variant="secondary" 
+            onClick={() => setShowCreateForm(false)} 
+            className="mr-4 bg-gray-700 text-white hover:bg-gray-600 border-gray-600"
+          >
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold">Neues Business erstellen</h1>
@@ -84,7 +95,7 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
                 placeholder="z.B. Downtown Garage"
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
               />
             </div>
 
@@ -100,6 +111,9 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
                 <option value="Werkstatt">Werkstatt</option>
                 <option value="Restaurant">Restaurant</option>
                 <option value="Tankstelle">Tankstelle</option>
+                <option value="Sicherheitsfirma">Sicherheitsfirma</option>
+                <option value="Taxiunternehmen">Taxiunternehmen</option>
+                <option value="Immobilienbüro">Immobilienbüro</option>
                 <option value="Sonstiges">Sonstiges</option>
               </select>
             </div>
@@ -112,21 +126,31 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
                     value={member}
                     onChange={(e) => updateMember(index, e.target.value)}
                     placeholder="Spielername"
-                    className="bg-gray-700 border-gray-600 text-white"
+                    className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
                   />
                 </div>
               ))}
-              <Button size="sm" variant="outline" onClick={addMemberField} className="text-white border-gray-600 hover:bg-gray-700">
+              <Button 
+                size="sm" 
+                onClick={addMemberField} 
+                className="bg-blue-600 text-white hover:bg-blue-700"
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Mitglied hinzufügen
               </Button>
             </div>
 
             <div className="flex space-x-2">
-              <Button onClick={handleCreateBusiness} className="bg-blue-600 hover:bg-blue-700">
+              <Button 
+                onClick={handleCreateBusiness} 
+                className="bg-emerald-600 text-white hover:bg-emerald-700"
+              >
                 Erstellen
               </Button>
-              <Button variant="outline" onClick={() => setShowCreateForm(false)} className="text-white border-gray-600 hover:bg-gray-700">
+              <Button 
+                onClick={() => setShowCreateForm(false)} 
+                className="bg-gray-600 text-white hover:bg-gray-700"
+              >
                 Abbrechen
               </Button>
             </div>
@@ -141,7 +165,11 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">
-          <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
+          <Button 
+            variant="secondary" 
+            onClick={onBack} 
+            className="mr-4 bg-gray-700 text-white hover:bg-gray-600 border-gray-600"
+          >
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold flex items-center">
@@ -150,7 +178,7 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
           </h1>
         </div>
         <Button 
-          className="bg-emerald-600 hover:bg-emerald-700"
+          className="bg-emerald-600 text-white hover:bg-emerald-700"
           onClick={() => setShowCreateForm(true)}
         >
           <Plus className="w-4 h-4 mr-2" />
@@ -192,10 +220,20 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
               <div>
                 <h4 className="font-bold text-lg text-white">{business.name}</h4>
                 <p className="text-gray-400">{business.type}</p>
+                <p className="text-sm text-gray-500">Inhaber: {business.owner}</p>
               </div>
-              <Badge className="bg-green-600">
-                {business.status.toUpperCase()}
-              </Badge>
+              <div className="flex items-center space-x-2">
+                <Badge className="bg-green-600 text-white">
+                  {business.status.toUpperCase()}
+                </Badge>
+                <Button 
+                  size="sm" 
+                  onClick={() => deleteBusiness(business.id)}
+                  className="bg-red-600 text-white hover:bg-red-700"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4 mb-4">
@@ -216,7 +254,7 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
               <p className="text-sm text-gray-400 mb-2">Mitglieder:</p>
               <div className="flex flex-wrap gap-2">
                 {business.members.map((member, index) => (
-                  <Badge key={index} variant="outline" className="text-white border-gray-600">
+                  <Badge key={index} className="bg-blue-600 text-white">
                     {member}
                   </Badge>
                 ))}
@@ -224,10 +262,18 @@ const BusinessApp = ({ onBack }: BusinessAppProps) => {
             </div>
             
             <div className="flex space-x-2">
-              <Button size="sm" variant="outline" className="text-white border-gray-600 hover:bg-gray-700">
+              <Button 
+                size="sm" 
+                className="bg-blue-600 text-white hover:bg-blue-700"
+              >
+                <Edit3 className="w-4 h-4 mr-2" />
                 Verwalten
               </Button>
-              <Button size="sm" variant="outline" className="text-white border-gray-600 hover:bg-gray-700">
+              <Button 
+                size="sm" 
+                className="bg-green-600 text-white hover:bg-green-700"
+              >
+                <DollarSign className="w-4 h-4 mr-2" />
                 Finanzen
               </Button>
             </div>

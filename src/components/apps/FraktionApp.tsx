@@ -34,7 +34,11 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
     <div className="p-6 text-white">
       {/* Header */}
       <div className="flex items-center mb-6">
-        <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
+        <Button 
+          variant="secondary" 
+          onClick={onBack} 
+          className="mr-4 bg-gray-700 text-white hover:bg-gray-600 border-gray-600"
+        >
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <h1 className="text-2xl font-bold">Fraktion - Mitglieder</h1>
@@ -70,7 +74,7 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
                   <p className="text-sm text-gray-400">{member.rank}</p>
                 </div>
               </div>
-              <Badge className={member.status === "online" ? "bg-green-600" : "bg-gray-600"}>
+              <Badge className={member.status === "online" ? "bg-green-600 text-white" : "bg-gray-600 text-white"}>
                 {member.status === "online" ? "Online" : "Offline"}
               </Badge>
             </div>
