@@ -68,7 +68,11 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">
-          <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
+          <Button 
+            variant="outline" 
+            onClick={onBack} 
+            className="mr-4 bg-gray-700 text-white hover:bg-gray-600 border-gray-600"
+          >
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold">Meine Fahrzeuge</h1>
@@ -77,26 +81,26 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <Card className="bg-gray-800 border-gray-700 p-4">
+        <Card className="bg-gray-800 border-gray-600 p-4">
           <div className="text-center">
             <p className="text-2xl font-bold text-green-400">
               {vehicles.filter(v => v.status === "verfügbar").length}
             </p>
-            <p className="text-sm text-gray-400">Verfügbar</p>
+            <p className="text-sm text-gray-300">Verfügbar</p>
           </div>
         </Card>
-        <Card className="bg-gray-800 border-gray-700 p-4">
+        <Card className="bg-gray-800 border-gray-600 p-4">
           <div className="text-center">
             <p className="text-2xl font-bold text-red-400">
               {vehicles.filter(v => v.status === "abschlepphof").length}
             </p>
-            <p className="text-sm text-gray-400">Abschlepphof</p>
+            <p className="text-sm text-gray-300">Abschlepphof</p>
           </div>
         </Card>
-        <Card className="bg-gray-800 border-gray-700 p-4">
+        <Card className="bg-gray-800 border-gray-600 p-4">
           <div className="text-center">
             <p className="text-2xl font-bold text-white">{vehicles.length}</p>
-            <p className="text-sm text-gray-400">Gesamt</p>
+            <p className="text-sm text-gray-300">Gesamt</p>
           </div>
         </Card>
       </div>
@@ -104,13 +108,13 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
       {/* Vehicle List */}
       <div className="space-y-4">
         {vehicles.map((vehicle) => (
-          <Card key={vehicle.id} className="bg-gray-800 border-gray-700 p-6">
+          <Card key={vehicle.id} className="bg-gray-800 border-gray-600 p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <Car className="w-8 h-8 text-blue-400" />
                 <div>
                   <h3 className="font-bold text-lg text-white">{vehicle.name}</h3>
-                  <p className="text-gray-400">{vehicle.model}</p>
+                  <p className="text-gray-300">{vehicle.model}</p>
                 </div>
               </div>
               <Badge className={getStatusColor(vehicle.status)}>
@@ -118,18 +122,18 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
               </Badge>
             </div>
             
-            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-700">
+            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-600">
               <div className="flex items-center space-x-2">
                 <Fuel className={`w-4 h-4 ${getFuelColor(vehicle.fuel)}`} />
-                <span className="text-sm">
+                <span className="text-sm text-white">
                   <span className={getFuelColor(vehicle.fuel)}>{vehicle.fuel}%</span> Kraftstoff
                 </span>
               </div>
               <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-400">{vehicle.location}</span>
+                <MapPin className="w-4 h-4 text-gray-300" />
+                <span className="text-sm text-gray-300">{vehicle.location}</span>
               </div>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-gray-300">
                 {vehicle.mileage.toLocaleString()} km
               </div>
             </div>

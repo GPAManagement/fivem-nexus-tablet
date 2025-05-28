@@ -35,9 +35,9 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
       {/* Header */}
       <div className="flex items-center mb-6">
         <Button 
-          variant="secondary" 
+          variant="outline" 
           onClick={onBack} 
-          className="mr-4 bg-white/20 text-white hover:bg-white/30 border-white/30 backdrop-blur-sm"
+          className="mr-4 bg-gray-700 text-white hover:bg-gray-600 border-gray-600"
         >
           <ArrowLeft className="w-4 h-4" />
         </Button>
@@ -45,7 +45,7 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
       </div>
 
       {/* Faction Info */}
-      <Card className="bg-white/10 backdrop-blur-md border-white/20 p-6 mb-6">
+      <Card className="bg-gray-800 border-gray-600 p-6 mb-6">
         <h2 className="text-xl font-bold mb-4 text-white">{fraktionData.name}</h2>
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -65,7 +65,7 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Mitgliederliste</h3>
         {fraktionData.members.map((member) => (
-          <Card key={member.id} className="bg-white/10 backdrop-blur-md border-white/20 p-4">
+          <Card key={member.id} className="bg-gray-800 border-gray-600 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 {getRankIcon(member.role)}
@@ -74,7 +74,7 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
                   <p className="text-sm text-gray-300">{member.rank}</p>
                 </div>
               </div>
-              <Badge className={member.status === "online" ? "bg-green-600/80 text-white backdrop-blur-sm" : "bg-gray-600/80 text-white backdrop-blur-sm"}>
+              <Badge className={member.status === "online" ? "bg-green-600 text-white" : "bg-gray-600 text-white"}>
                 {member.status === "online" ? "Online" : "Offline"}
               </Badge>
             </div>

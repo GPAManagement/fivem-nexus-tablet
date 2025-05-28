@@ -37,7 +37,7 @@ const Index = () => {
   if (currentApp && ActiveApp) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-        <div className="w-[800px] h-[600px] bg-black/20 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+        <div className="w-[800px] h-[600px] bg-gray-900 rounded-3xl shadow-2xl border border-gray-700 overflow-hidden">
           <ScrollArea className="w-full h-full">
             <ActiveApp onBack={() => setCurrentApp(null)} />
           </ScrollArea>
@@ -48,7 +48,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-[800px] h-[600px] bg-gradient-to-b from-gray-900/80 to-black/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+      <div className="w-[800px] h-[600px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl shadow-2xl border border-gray-600 overflow-hidden">
         <ScrollArea className="w-full h-full">
           <div className="p-8 text-white">
             {/* App Grid */}
@@ -56,11 +56,11 @@ const Index = () => {
               {apps.map((app) => (
                 <Card
                   key={app.id}
-                  className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer group"
+                  className="bg-gray-800 border-gray-600 hover:bg-gray-700 transition-all duration-300 cursor-pointer group"
                   onClick={() => setCurrentApp(app.id)}
                 >
                   <div className="p-6 text-center">
-                    <div className={`${app.color} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm shadow-lg`}>
+                    <div className={`${app.color} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                       <app.icon className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-white font-medium">{app.name}</h3>
