@@ -37,7 +37,7 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
         <Button 
           variant="secondary" 
           onClick={onBack} 
-          className="mr-4 bg-gray-700 text-white hover:bg-gray-600 border-gray-600"
+          className="mr-4 bg-white/20 text-white hover:bg-white/30 border-white/30 backdrop-blur-sm"
         >
           <ArrowLeft className="w-4 h-4" />
         </Button>
@@ -45,15 +45,15 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
       </div>
 
       {/* Faction Info */}
-      <Card className="bg-gray-800 border-gray-700 p-6 mb-6">
+      <Card className="bg-white/10 backdrop-blur-md border-white/20 p-6 mb-6">
         <h2 className="text-xl font-bold mb-4 text-white">{fraktionData.name}</h2>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-gray-400">Mitglieder</p>
+            <p className="text-gray-300">Mitglieder</p>
             <p className="text-lg font-semibold text-white">{fraktionData.members.length}</p>
           </div>
           <div>
-            <p className="text-gray-400">Online</p>
+            <p className="text-gray-300">Online</p>
             <p className="text-lg font-semibold text-green-400">
               {fraktionData.members.filter(m => m.status === "online").length}
             </p>
@@ -65,16 +65,16 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Mitgliederliste</h3>
         {fraktionData.members.map((member) => (
-          <Card key={member.id} className="bg-gray-800 border-gray-700 p-4">
+          <Card key={member.id} className="bg-white/10 backdrop-blur-md border-white/20 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 {getRankIcon(member.role)}
                 <div>
                   <p className="font-semibold text-white">{member.name}</p>
-                  <p className="text-sm text-gray-400">{member.rank}</p>
+                  <p className="text-sm text-gray-300">{member.rank}</p>
                 </div>
               </div>
-              <Badge className={member.status === "online" ? "bg-green-600 text-white" : "bg-gray-600 text-white"}>
+              <Badge className={member.status === "online" ? "bg-green-600/80 text-white backdrop-blur-sm" : "bg-gray-600/80 text-white backdrop-blur-sm"}>
                 {member.status === "online" ? "Online" : "Offline"}
               </Badge>
             </div>

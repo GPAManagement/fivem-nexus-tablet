@@ -9,8 +9,7 @@ import {
   Radio, 
   Phone, 
   FileText, 
-  Briefcase,
-  Settings
+  Briefcase
 } from "lucide-react";
 import FraktionApp from "@/components/apps/FraktionApp";
 import GarageApp from "@/components/apps/GarageApp";
@@ -30,8 +29,7 @@ const Index = () => {
     { id: 'leitstelle', name: 'Leitstelle', icon: Radio, color: 'bg-purple-600', component: LeitstelleApp },
     { id: 'dispatch', name: 'Dispatch', icon: Phone, color: 'bg-orange-600', component: DispatchApp },
     { id: 'akten', name: 'Akten', icon: FileText, color: 'bg-yellow-600', component: AktenApp },
-    { id: 'business', name: 'Business', icon: Briefcase, color: 'bg-emerald-600', component: BusinessApp },
-    { id: 'settings', name: 'Settings', icon: Settings, color: 'bg-gray-600', component: null },
+    { id: 'business', name: 'Business', icon: Briefcase, color: 'bg-emerald-600', component: BusinessApp }
   ];
 
   const ActiveApp = currentApp ? apps.find(app => app.id === currentApp)?.component : null;
@@ -39,7 +37,7 @@ const Index = () => {
   if (currentApp && ActiveApp) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-        <div className="w-[800px] h-[600px] bg-black rounded-3xl shadow-2xl border-8 border-gray-800 overflow-hidden">
+        <div className="w-[800px] h-[600px] bg-black/20 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
           <ScrollArea className="w-full h-full">
             <ActiveApp onBack={() => setCurrentApp(null)} />
           </ScrollArea>
@@ -50,7 +48,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-[800px] h-[600px] bg-gradient-to-b from-gray-900 to-black rounded-3xl shadow-2xl border-8 border-gray-800 overflow-hidden">
+      <div className="w-[800px] h-[600px] bg-gradient-to-b from-gray-900/80 to-black/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
         <ScrollArea className="w-full h-full">
           <div className="p-8 text-white">
             {/* App Grid */}
@@ -58,11 +56,11 @@ const Index = () => {
               {apps.map((app) => (
                 <Card
                   key={app.id}
-                  className="bg-gray-800/50 border-gray-700 hover:bg-gray-700/50 transition-all duration-300 cursor-pointer group"
+                  className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer group"
                   onClick={() => setCurrentApp(app.id)}
                 >
                   <div className="p-6 text-center">
-                    <div className={`${app.color} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`${app.color} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm shadow-lg`}>
                       <app.icon className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-white font-medium">{app.name}</h3>
