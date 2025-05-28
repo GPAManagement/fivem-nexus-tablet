@@ -103,13 +103,13 @@ const LeitstelleApp = ({ onBack }: LeitstelleAppProps) => {
 
   if (showCreateForm || editingPatrol) {
     return (
-      <div className="p-6">
+      <div className="p-6 text-white">
         <div className="flex items-center mb-6">
           <Button variant="ghost" onClick={() => {
             setShowCreateForm(false);
             setEditingPatrol(null);
             setFormData({ name: "", members: [""], status: "10-8" });
-          }} className="mr-4">
+          }} className="mr-4 text-white hover:bg-gray-700">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold">
@@ -120,48 +120,49 @@ const LeitstelleApp = ({ onBack }: LeitstelleAppProps) => {
         <Card className="bg-gray-800 border-gray-700 p-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Streifenname:</label>
+              <label className="block text-sm font-medium mb-2 text-white">Streifenname:</label>
               <Input
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
                 placeholder="z.B. Streife Alpha-12"
-                className="bg-gray-700 border-gray-600"
+                className="bg-gray-700 border-gray-600 text-white"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Mitglieder:</label>
+              <label className="block text-sm font-medium mb-2 text-white">Mitglieder:</label>
               {formData.members.map((member, index) => (
                 <div key={index} className="flex space-x-2 mb-2">
                   <Input
                     value={member}
                     onChange={(e) => updateMember(index, e.target.value)}
                     placeholder="Beamtername"
-                    className="bg-gray-700 border-gray-600"
+                    className="bg-gray-700 border-gray-600 text-white"
                   />
                   {formData.members.length > 1 && (
                     <Button 
                       size="sm" 
                       variant="ghost" 
                       onClick={() => removeMember(index)}
+                      className="text-white hover:bg-gray-700"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   )}
                 </div>
               ))}
-              <Button size="sm" variant="outline" onClick={addMemberField}>
+              <Button size="sm" variant="outline" onClick={addMemberField} className="text-white border-gray-600 hover:bg-gray-700">
                 <Plus className="w-4 h-4 mr-2" />
                 Mitglied hinzufügen
               </Button>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Status Code:</label>
+              <label className="block text-sm font-medium mb-2 text-white">Status Code:</label>
               <select 
                 value={formData.status}
                 onChange={(e) => setFormData({...formData, status: e.target.value})}
-                className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
+                className="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white"
               >
                 {statusCodes.map(code => (
                   <option key={code.code} value={code.code}>
@@ -179,7 +180,7 @@ const LeitstelleApp = ({ onBack }: LeitstelleAppProps) => {
                 setShowCreateForm(false);
                 setEditingPatrol(null);
                 setFormData({ name: "", members: [""], status: "10-8" });
-              }}>
+              }} className="text-white border-gray-600 hover:bg-gray-700">
                 Abbrechen
               </Button>
             </div>
@@ -190,11 +191,11 @@ const LeitstelleApp = ({ onBack }: LeitstelleAppProps) => {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-white">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">
-          <Button variant="ghost" onClick={onBack} className="mr-4">
+          <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold flex items-center">
@@ -240,7 +241,7 @@ const LeitstelleApp = ({ onBack }: LeitstelleAppProps) => {
         {patrols.map((patrol) => (
           <Card key={patrol.id} className="bg-gray-800 border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
-              <h4 className="font-bold text-lg">{patrol.name}</h4>
+              <h4 className="font-bold text-lg text-white">{patrol.name}</h4>
               <Badge className={getStatusColor(patrol.status)}>
                 {patrol.status} - {patrol.statusText}
               </Badge>
@@ -250,7 +251,7 @@ const LeitstelleApp = ({ onBack }: LeitstelleAppProps) => {
               <p className="text-sm text-gray-400 mb-2">Mitglieder:</p>
               <div className="flex flex-wrap gap-2">
                 {patrol.members.map((member, index) => (
-                  <Badge key={index} variant="outline">
+                  <Badge key={index} variant="outline" className="text-white border-gray-600">
                     {member}
                   </Badge>
                 ))}
@@ -258,14 +259,14 @@ const LeitstelleApp = ({ onBack }: LeitstelleAppProps) => {
             </div>
             
             <div className="flex space-x-2">
-              <Button size="sm" variant="outline">
+              <Button size="sm" variant="outline" className="text-white border-gray-600 hover:bg-gray-700">
                 <Edit className="w-4 h-4 mr-2" />
                 Bearbeiten
               </Button>
               <Button 
                 size="sm" 
                 variant="ghost" 
-                className="text-red-400 hover:text-red-300"
+                className="text-red-400 hover:text-red-300 hover:bg-gray-700"
                 onClick={() => handleDeletePatrol(patrol.id)}
               >
                 <Trash2 className="w-4 h-4 mr-2" />

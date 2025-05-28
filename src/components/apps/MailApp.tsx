@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -58,9 +59,9 @@ const MailApp = ({ onBack }: MailAppProps) => {
 
   if (showCompose) {
     return (
-      <div className="p-6">
+      <div className="p-6 text-white">
         <div className="flex items-center mb-6">
-          <Button variant="ghost" onClick={() => setShowCompose(false)} className="mr-4">
+          <Button variant="ghost" onClick={() => setShowCompose(false)} className="mr-4 text-white hover:bg-gray-700">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold">Neue Mail verfassen</h1>
@@ -69,32 +70,32 @@ const MailApp = ({ onBack }: MailAppProps) => {
         <Card className="bg-gray-800 border-gray-700 p-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">An:</label>
+              <label className="block text-sm font-medium mb-2 text-white">An:</label>
               <Input
                 value={composeData.to}
                 onChange={(e) => setComposeData({...composeData, to: e.target.value})}
                 placeholder="Empfänger eingeben..."
-                className="bg-gray-700 border-gray-600"
+                className="bg-gray-700 border-gray-600 text-white"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium mb-2">Betreff:</label>
+              <label className="block text-sm font-medium mb-2 text-white">Betreff:</label>
               <Input
                 value={composeData.subject}
                 onChange={(e) => setComposeData({...composeData, subject: e.target.value})}
                 placeholder="Betreff eingeben..."
-                className="bg-gray-700 border-gray-600"
+                className="bg-gray-700 border-gray-600 text-white"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium mb-2">Nachricht:</label>
+              <label className="block text-sm font-medium mb-2 text-white">Nachricht:</label>
               <Textarea
                 value={composeData.message}
                 onChange={(e) => setComposeData({...composeData, message: e.target.value})}
                 placeholder="Ihre Nachricht..."
-                className="bg-gray-700 border-gray-600 min-h-32"
+                className="bg-gray-700 border-gray-600 min-h-32 text-white"
               />
             </div>
             
@@ -103,7 +104,7 @@ const MailApp = ({ onBack }: MailAppProps) => {
                 <Send className="w-4 h-4 mr-2" />
                 Senden
               </Button>
-              <Button variant="outline" onClick={() => setShowCompose(false)}>
+              <Button variant="outline" onClick={() => setShowCompose(false)} className="text-white border-gray-600 hover:bg-gray-700">
                 Abbrechen
               </Button>
             </div>
@@ -116,9 +117,9 @@ const MailApp = ({ onBack }: MailAppProps) => {
   if (selectedMail) {
     const mail = mails.find(m => m.id === selectedMail);
     return (
-      <div className="p-6">
+      <div className="p-6 text-white">
         <div className="flex items-center mb-6">
-          <Button variant="ghost" onClick={() => setSelectedMail(null)} className="mr-4">
+          <Button variant="ghost" onClick={() => setSelectedMail(null)} className="mr-4 text-white hover:bg-gray-700">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold">Mail Details</h1>
@@ -127,7 +128,7 @@ const MailApp = ({ onBack }: MailAppProps) => {
         <Card className="bg-gray-800 border-gray-700 p-6">
           <div className="border-b border-gray-700 pb-4 mb-4">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-xl font-bold">{mail?.subject}</h2>
+              <h2 className="text-xl font-bold text-white">{mail?.subject}</h2>
               {mail?.important && <Star className="w-5 h-5 text-yellow-400 fill-current" />}
             </div>
             <div className="flex items-center justify-between text-sm text-gray-400">
@@ -137,8 +138,8 @@ const MailApp = ({ onBack }: MailAppProps) => {
           </div>
           
           <div className="prose prose-invert max-w-none">
-            <p>Guten Tag,</p>
-            <p>
+            <p className="text-white">Guten Tag,</p>
+            <p className="text-white">
               hiermit informiere ich Sie über einen verdächtigen Bankraub in der Innenstadt von Los Santos. 
               Der Vorfall ereignete sich um 09:45 Uhr in der Fleeca Bank an der Vinewood Boulevard.
             </p>
@@ -146,8 +147,8 @@ const MailApp = ({ onBack }: MailAppProps) => {
 
           <div className="mt-6 pt-4 border-t border-gray-700 flex space-x-2">
             <Button size="sm">Antworten</Button>
-            <Button size="sm" variant="outline">Weiterleiten</Button>
-            <Button size="sm" variant="ghost">
+            <Button size="sm" variant="outline" className="text-white border-gray-600 hover:bg-gray-700">Weiterleiten</Button>
+            <Button size="sm" variant="ghost" className="text-white hover:bg-gray-700">
               <Trash2 className="w-4 h-4" />
             </Button>
           </div>
@@ -157,11 +158,11 @@ const MailApp = ({ onBack }: MailAppProps) => {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-white">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">
-          <Button variant="ghost" onClick={onBack} className="mr-4">
+          <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold">Mail</h1>
@@ -182,7 +183,7 @@ const MailApp = ({ onBack }: MailAppProps) => {
             <Button
               key={folder.id}
               variant={activeFolder === folder.id ? "default" : "ghost"}
-              className="w-full justify-between"
+              className="w-full justify-between text-white hover:bg-gray-700"
               onClick={() => setActiveFolder(folder.id)}
             >
               <div className="flex items-center">

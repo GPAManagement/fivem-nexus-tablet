@@ -31,10 +31,10 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-white">
       {/* Header */}
       <div className="flex items-center mb-6">
-        <Button variant="ghost" onClick={onBack} className="mr-4">
+        <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <h1 className="text-2xl font-bold">Fraktion - Mitglieder</h1>
@@ -42,11 +42,11 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
 
       {/* Faction Info */}
       <Card className="bg-gray-800 border-gray-700 p-6 mb-6">
-        <h2 className="text-xl font-bold mb-4">{fraktionData.name}</h2>
+        <h2 className="text-xl font-bold mb-4 text-white">{fraktionData.name}</h2>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-gray-400">Mitglieder</p>
-            <p className="text-lg font-semibold">{fraktionData.members.length}</p>
+            <p className="text-lg font-semibold text-white">{fraktionData.members.length}</p>
           </div>
           <div>
             <p className="text-gray-400">Online</p>
@@ -66,7 +66,7 @@ const FraktionApp = ({ onBack }: FraktionAppProps) => {
               <div className="flex items-center space-x-3">
                 {getRankIcon(member.role)}
                 <div>
-                  <p className="font-semibold">{member.name}</p>
+                  <p className="font-semibold text-white">{member.name}</p>
                   <p className="text-sm text-gray-400">{member.rank}</p>
                 </div>
               </div>

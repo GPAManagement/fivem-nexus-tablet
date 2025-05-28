@@ -33,9 +33,9 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
       id: 3,
       name: "Motorrad",
       model: "Nagasaki Carbon RS",
-      status: "werkstatt",
+      status: "abschlepphof",
       fuel: 45,
-      location: "LS Customs",
+      location: "Abschlepphof",
       mileage: 45210
     },
     {
@@ -52,7 +52,7 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "verfügbar": return "bg-green-600";
-      case "werkstatt": return "bg-red-600";
+      case "abschlepphof": return "bg-red-600";
       default: return "bg-gray-600";
     }
   };
@@ -64,11 +64,11 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-white">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">
-          <Button variant="ghost" onClick={onBack} className="mr-4">
+          <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <h1 className="text-2xl font-bold">Meine Fahrzeuge</h1>
@@ -88,9 +88,9 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
         <Card className="bg-gray-800 border-gray-700 p-4">
           <div className="text-center">
             <p className="text-2xl font-bold text-red-400">
-              {vehicles.filter(v => v.status === "werkstatt").length}
+              {vehicles.filter(v => v.status === "abschlepphof").length}
             </p>
-            <p className="text-sm text-gray-400">In Werkstatt</p>
+            <p className="text-sm text-gray-400">Abschlepphof</p>
           </div>
         </Card>
         <Card className="bg-gray-800 border-gray-700 p-4">
@@ -109,7 +109,7 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
               <div className="flex items-center space-x-4">
                 <Car className="w-8 h-8 text-blue-400" />
                 <div>
-                  <h3 className="font-bold text-lg">{vehicle.name}</h3>
+                  <h3 className="font-bold text-lg text-white">{vehicle.name}</h3>
                   <p className="text-gray-400">{vehicle.model}</p>
                 </div>
               </div>
@@ -133,17 +133,6 @@ const GarageApp = ({ onBack }: GarageAppProps) => {
                 {vehicle.mileage.toLocaleString()} km
               </div>
             </div>
-
-            {vehicle.status === "verfügbar" && (
-              <div className="mt-4 flex space-x-2">
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                  Spawnen
-                </Button>
-                <Button size="sm" variant="outline">
-                  Details
-                </Button>
-              </div>
-            )}
           </Card>
         ))}
       </div>

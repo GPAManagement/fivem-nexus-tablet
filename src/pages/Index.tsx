@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   Users, 
   Car, 
@@ -37,34 +38,40 @@ const Index = () => {
 
   if (currentApp && ActiveApp) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center p-8">
-        <div className="w-full max-w-4xl bg-black rounded-3xl shadow-2xl border-8 border-gray-800 p-6">
-          <ActiveApp onBack={() => setCurrentApp(null)} />
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+        <div className="w-[800px] h-[600px] bg-black rounded-3xl shadow-2xl border-8 border-gray-800 overflow-hidden">
+          <ScrollArea className="w-full h-full">
+            <ActiveApp onBack={() => setCurrentApp(null)} />
+          </ScrollArea>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-8">
-      <div className="w-full max-w-4xl bg-gradient-to-b from-gray-900 to-black rounded-3xl shadow-2xl border-8 border-gray-800 p-8 text-white">
-        {/* App Grid */}
-        <div className="grid grid-cols-4 gap-6">
-          {apps.map((app) => (
-            <Card
-              key={app.id}
-              className="bg-gray-800/50 border-gray-700 hover:bg-gray-700/50 transition-all duration-300 cursor-pointer group"
-              onClick={() => setCurrentApp(app.id)}
-            >
-              <div className="p-6 text-center">
-                <div className={`${app.color} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <app.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-white font-medium">{app.name}</h3>
-              </div>
-            </Card>
-          ))}
-        </div>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <div className="w-[800px] h-[600px] bg-gradient-to-b from-gray-900 to-black rounded-3xl shadow-2xl border-8 border-gray-800 overflow-hidden">
+        <ScrollArea className="w-full h-full">
+          <div className="p-8 text-white">
+            {/* App Grid */}
+            <div className="grid grid-cols-4 gap-6">
+              {apps.map((app) => (
+                <Card
+                  key={app.id}
+                  className="bg-gray-800/50 border-gray-700 hover:bg-gray-700/50 transition-all duration-300 cursor-pointer group"
+                  onClick={() => setCurrentApp(app.id)}
+                >
+                  <div className="p-6 text-center">
+                    <div className={`${app.color} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <app.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-white font-medium">{app.name}</h3>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );

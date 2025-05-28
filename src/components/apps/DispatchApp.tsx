@@ -40,16 +40,6 @@ const DispatchApp = ({ onBack }: DispatchAppProps) => {
       time: "13:28",
       status: "bearbeitet",
       description: "Mehrere Schüsse in der Nähe des Parks gehört"
-    },
-    {
-      id: "911-004",
-      caller: "Lisa Johnson",
-      phone: "555-0789",
-      type: "Häusliche Gewalt",
-      location: "Apartment 4B, Mirror Park",
-      time: "13:15",
-      status: "bearbeitet",
-      description: "Laute Streitereien und Geschrei aus der Nachbarwohnung"
     }
   ];
 
@@ -63,10 +53,10 @@ const DispatchApp = ({ onBack }: DispatchAppProps) => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-white">
       {/* Header */}
       <div className="flex items-center mb-6">
-        <Button variant="ghost" onClick={onBack} className="mr-4">
+        <Button variant="ghost" onClick={onBack} className="mr-4 text-white hover:bg-gray-700">
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <h1 className="text-2xl font-bold flex items-center">
@@ -112,7 +102,7 @@ const DispatchApp = ({ onBack }: DispatchAppProps) => {
               <div className="flex items-center space-x-4">
                 <AlertTriangle className="w-6 h-6 text-red-400" />
                 <div>
-                  <h4 className="font-bold text-lg">{call.type}</h4>
+                  <h4 className="font-bold text-lg text-white">{call.type}</h4>
                   <p className="text-gray-400">{call.caller} • {call.phone}</p>
                 </div>
               </div>
@@ -124,36 +114,20 @@ const DispatchApp = ({ onBack }: DispatchAppProps) => {
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <p className="text-sm text-gray-400">Standort</p>
-                <p className="font-semibold">{call.location}</p>
+                <p className="font-semibold text-white">{call.location}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-400">Eingang</p>
                 <div className="flex items-center space-x-2">
                   <Clock className="w-4 h-4 text-gray-400" />
-                  <span className="font-mono">{call.time}</span>
+                  <span className="font-mono text-white">{call.time}</span>
                 </div>
               </div>
             </div>
 
             <div className="mb-4">
               <p className="text-sm text-gray-400 mb-2">Beschreibung</p>
-              <p className="text-sm bg-gray-700 p-3 rounded">{call.description}</p>
-            </div>
-
-            <div className="flex space-x-2">
-              <Button size="sm" variant="outline">
-                Details ansehen
-              </Button>
-              {call.status === "wartend" && (
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                  Einheit zuweisen
-                </Button>
-              )}
-              {call.status === "zugewiesen" && (
-                <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                  Als bearbeitet markieren
-                </Button>
-              )}
+              <p className="text-sm bg-gray-700 p-3 rounded text-white">{call.description}</p>
             </div>
           </Card>
         ))}
