@@ -1,8 +1,9 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Mail, Inbox, Send, Trash2, Star } from "lucide-react";
 
 interface MailAppProps {
@@ -12,6 +13,12 @@ interface MailAppProps {
 const MailApp = ({ onBack }: MailAppProps) => {
   const [activeFolder, setActiveFolder] = useState("inbox");
   const [selectedMail, setSelectedMail] = useState<number | null>(null);
+  const [showCompose, setShowCompose] = useState(false);
+  const [composeData, setComposeData] = useState({
+    to: "",
+    subject: "",
+    message: ""
+  });
 
   const mails = [
     {
@@ -33,26 +40,6 @@ const MailApp = ({ onBack }: MailAppProps) => {
       unread: true,
       important: false,
       folder: "inbox"
-    },
-    {
-      id: 3,
-      from: "HR Department",
-      subject: "Trainingsplan Q4",
-      preview: "Neue Trainingsprogramme sind verfügbar...",
-      time: "Gestern",
-      unread: false,
-      important: false,
-      folder: "inbox"
-    },
-    {
-      id: 4,
-      from: "Tech Support",
-      subject: "System Wartung",
-      preview: "Geplante Wartungsarbeiten am Wochenende...",
-      time: "Gestern",
-      unread: false,
-      important: false,
-      folder: "inbox"
     }
   ];
 
@@ -63,7 +50,68 @@ const MailApp = ({ onBack }: MailAppProps) => {
     { id: "trash", name: "Papierkorb", icon: Trash2, count: 0 }
   ];
 
-  const filteredMails = mails.filter(mail => mail.folder === activeFolder);
+  const handleSendMail = () => {
+    console.log("Mail gesendet:", composeData);
+    setComposeData({ to: "", subject: "", message: "" });
+    setShowCompose(false);
+  };
+
+  if (showCompose) {
+    return (
+      <div className="p-6">
+        <div className="flex items-center mb-6">
+          <Button variant="ghost" onClick={() => setShowCompose(false)} className="mr-4">
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
+          <h1 className="text-2xl font-bold">Neue Mail verfassen</h1>
+        </div>
+
+        <Card className="bg-gray-800 border-gray-700 p-6">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">An:</label>
+              <Input
+                value={composeData.to}
+                onChange={(e) => setComposeData({...composeData, to: e.target.value})}
+                placeholder="Empfänger eingeben..."
+                className="bg-gray-700 border-gray-600"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium mb-2">Betreff:</label>
+              <Input
+                value={composeData.subject}
+                onChange={(e) => setComposeData({...composeData, subject: e.target.value})}
+                placeholder="Betreff eingeben..."
+                className="bg-gray-700 border-gray-600"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium mb-2">Nachricht:</label>
+              <Textarea
+                value={composeData.message}
+                onChange={(e) => setComposeData({...composeData, message: e.target.value})}
+                placeholder="Ihre Nachricht..."
+                className="bg-gray-700 border-gray-600 min-h-32"
+              />
+            </div>
+            
+            <div className="flex space-x-2">
+              <Button onClick={handleSendMail} className="bg-blue-600 hover:bg-blue-700">
+                <Send className="w-4 h-4 mr-2" />
+                Senden
+              </Button>
+              <Button variant="outline" onClick={() => setShowCompose(false)}>
+                Abbrechen
+              </Button>
+            </div>
+          </div>
+        </Card>
+      </div>
+    );
+  }
 
   if (selectedMail) {
     const mail = mails.find(m => m.id === selectedMail);
@@ -94,18 +142,6 @@ const MailApp = ({ onBack }: MailAppProps) => {
               hiermit informiere ich Sie über einen verdächtigen Bankraub in der Innenstadt von Los Santos. 
               Der Vorfall ereignete sich um 09:45 Uhr in der Fleeca Bank an der Vinewood Boulevard.
             </p>
-            <p>Details zum Einsatz:</p>
-            <ul className="list-disc list-inside text-gray-300">
-              <li>3-4 bewaffnete Täter</li>
-              <li>Fluchtfahrzeug: Schwarzer Sultan</li>
-              <li>Fluchtrichtung: Norden über die Great Ocean Highway</li>
-              <li>Keine Verletzten gemeldet</li>
-            </ul>
-            <p>
-              Alle verfügbaren Einheiten werden gebeten, sich an der Fahndung zu beteiligen. 
-              Der Einsatz hat höchste Priorität.
-            </p>
-            <p>Mit freundlichen Grüßen,<br/>Chief Williams</p>
           </div>
 
           <div className="mt-6 pt-4 border-t border-gray-700 flex space-x-2">
@@ -130,7 +166,10 @@ const MailApp = ({ onBack }: MailAppProps) => {
           </Button>
           <h1 className="text-2xl font-bold">Mail</h1>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => setShowCompose(true)}
+        >
           <Send className="w-4 h-4 mr-2" />
           Verfassen
         </Button>
@@ -161,7 +200,7 @@ const MailApp = ({ onBack }: MailAppProps) => {
 
         {/* Mail List */}
         <div className="col-span-3 space-y-2">
-          {filteredMails.map((mail) => (
+          {mails.filter(mail => mail.folder === activeFolder).map((mail) => (
             <Card
               key={mail.id}
               className={`bg-gray-800 border-gray-700 p-4 cursor-pointer hover:bg-gray-700 transition-colors ${
