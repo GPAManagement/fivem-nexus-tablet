@@ -5,19 +5,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   Users, 
   Car, 
-  Mail, 
   Radio, 
-  Phone, 
-  FileText, 
-  Briefcase
+  FileText
 } from "lucide-react";
 import FraktionApp from "@/components/apps/FraktionApp";
 import GarageApp from "@/components/apps/GarageApp";
-import MailApp from "@/components/apps/MailApp";
 import LeitstelleApp from "@/components/apps/LeitstelleApp";
-import DispatchApp from "@/components/apps/DispatchApp";
 import AktenApp from "@/components/apps/AktenApp";
-import BusinessApp from "@/components/apps/BusinessApp";
 
 const Index = () => {
   const [currentApp, setCurrentApp] = useState<string | null>(null);
@@ -25,11 +19,8 @@ const Index = () => {
   const apps = [
     { id: 'fraktion', name: 'Fraktion', icon: Users, color: 'bg-blue-600', component: FraktionApp },
     { id: 'garage', name: 'Garage', icon: Car, color: 'bg-green-600', component: GarageApp },
-    { id: 'mail', name: 'Mail', icon: Mail, color: 'bg-red-600', component: MailApp },
     { id: 'leitstelle', name: 'Leitstelle', icon: Radio, color: 'bg-purple-600', component: LeitstelleApp },
-    { id: 'dispatch', name: 'Dispatch', icon: Phone, color: 'bg-orange-600', component: DispatchApp },
-    { id: 'akten', name: 'Akten', icon: FileText, color: 'bg-yellow-600', component: AktenApp },
-    { id: 'business', name: 'Business', icon: Briefcase, color: 'bg-emerald-600', component: BusinessApp }
+    { id: 'akten', name: 'Akten', icon: FileText, color: 'bg-yellow-600', component: AktenApp }
   ];
 
   const ActiveApp = currentApp ? apps.find(app => app.id === currentApp)?.component : null;
